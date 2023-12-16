@@ -12,7 +12,7 @@ The images were carefully labeled to get all the corners of the paintings in the
 ![Screenshot](./report_images/labeling.png)
 
 ## YOLO:
-The YOLOv5 model provided by Ultralytics was trained on the dataset for 100 epochs obtaining an mAP(IoU = 0.5) of 96.7% and an mAP(IoU = 0.5 : 0.95) of 82.6%. An example detection is shown below.
+The YOLOv5 model provided by Ultralytics was trained on the dataset for 100 epochs obtaining an mAP(IoU = 0.5) of 96.7% and an mAP(IoU = 0.5 : 0.95) of 82.6%. An example detection is shown below. The code written for this project is a modified version of the detect.py file provided by the Ultralytics for YOLOv5 with lots of additions.
 
 ![Screenshot](./report_images/BB.jpg)
 

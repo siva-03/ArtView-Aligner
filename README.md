@@ -9,12 +9,12 @@ All these images were labeled in the YOLO-xywh format using the tool `labelImg`.
 
 The images were carefully labeled to get all the corners of the paintings in the bounding boxes.
 
-IMAGE1================
+![Screenshot](./report_images/labeling.png)
 
 ## YOLO:
 The YOLOv5 model provided by Ultralytics was trained on the dataset for 100 epochs obtaining an mAP(IoU = 0.5) of 96.7% and an mAP(IoU = 0.5 : 0.95) of 82.6%. An example detection on is shown below.
 
-IMAGE2================
+![Screenshot](./report_images/BB.png)
 
 ## Failed attempts with edges and corners:
 The next problem to solve is detecting whether the user is viewing the painting from an angle. The first strategy was to get the lines of the frame edges through Hough transform and measure the slope of the top and the bottom lines to know which way one is facing the painting from.
@@ -33,7 +33,7 @@ Ultimately, applying Harris corner detector on blurred images and getting the la
 ## Finding the four corners of the frame:
 Given the numerous potential corners (represented in green) that fall inside and slightly beyond the bounding box (represented in red), how do we find four of them (shown in blue) that are the most representative of the frame corners? 
 
-IMAGE3================
+![Screenshot](./report_images/corners.png)
 
 This problem seems similar to a Convex Hull problem except we need only four vertices and all the points need not be inside the quadrilateral. We are only looking for some good approximation of the actual frame corners.
 
@@ -52,21 +52,21 @@ This could be solved by getting the slopes of the top and bottom lines but we wo
 - If there are no paintings in the image, say `No paintings detected`.
 - If the bounding box of the largest painting does not measure up to at least 25% of the image size on one of the axes, say `Painting too far, walk towards LEFT/CENTER/RIGHT` depending on where the painting is.
 
-  IMG
+  ![Screenshot](./report_images/too_far.png)
 
 - If the bounding box is large enough, but its center does not lie in the middle third of the image, say `Turn LEFT/RIGHT` accordingly to get the largest painting to the center.
 
-  img
+  ![Screenshot](./report_images/turn_right.png)
 
 - Once the largest bounding box is close enough and in the center third of the image, say `Close and centered`.
 
-  IMG
+  ![Screenshot](./report_images/closecenter.png)
 
 - Then perform corner detection on the largest bounding box to visualize the corners of the painting.
 - Find the left to right frame edge length ratio (L/R) using the corners found.
 - If the bounding box is `Close and centered`, if the ratio is in the range of [0.9, 1.1], say `Viewing from center`. If the ratio > 1.1, say `Viewing from left` and if ratio < 0.9, say `Viewing from right`.
 
-  img
+  ![Screenshot](./report_images/view_left.png)
 
 ## Results:
 To evaluate the model’s performance in unknown environments, I collected some pictures from the Engineering Center and uploaded the predictions in the results folder. The user directions seem to be correct most of the time.

@@ -82,4 +82,5 @@ To evaluate the model’s performance in unknown environments, I collected some 
 - Adding functionality that also describes the painting once the user is directed towards it properly.
 - Improve/tune the corner detection algorithm to include the actual frame corners all the time.
 
-
+## Other work:
+I also wrote python code to read and process bag files made by the RealSense viewer. The RGB-D and the gyroscope data are read synchronously for processing. The grocery stores I approached for shelf video data collection turned me down, so I had to pivot to the current project.

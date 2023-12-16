@@ -3,7 +3,7 @@
 This project aims to build a model that can identify all the paintings in a given image and direct the user to face the largest painting properly. This could be used in conjunction with models that describe images or art to visually impaired people as making them face the art correctly produces better results from the description models.
 
 ## Dataset Creation:
-Around 370 images were scraped from the internet using the tool `google-image-download`. The search queries used were synonymous to ‘paintings in museum’ and ‘museum art collection’. There were also 30 background images with no art added to the dataset. The dataset split was 271, 70,  36 images for the train, validation and the testing sets.
+Around 370 images were scraped from the internet using the tool `google-image-download`. The search queries used were synonymous to ‘paintings in museum’ and ‘museum art collection’. There were also 30 background images with no art added to the dataset. The dataset split was 271, 70, 36 images for the train, validation and the testing sets.
 
 All these images were labeled in the YOLO-xywh format using the tool `labelImg`. Most of the images are densely labeled as they have a lot of paintings in them. The only class label used is ‘Painting’ which is not present in the 80 classes that YOLOv5 is trained on. 
 
@@ -12,7 +12,7 @@ The images were carefully labeled to get all the corners of the paintings in the
 ![Screenshot](./report_images/labeling.png)
 
 ## YOLO:
-The YOLOv5 model provided by Ultralytics was trained on the dataset for 100 epochs obtaining an mAP(IoU = 0.5) of 96.7% and an mAP(IoU = 0.5 : 0.95) of 82.6%. An example detection on is shown below.
+The YOLOv5 model provided by Ultralytics was trained on the dataset for 100 epochs obtaining an mAP(IoU = 0.5) of 96.7% and an mAP(IoU = 0.5 : 0.95) of 82.6%. An example detection is shown below.
 
 ![Screenshot](./report_images/BB.jpg)
 
@@ -48,23 +48,23 @@ Given the four corners that represent the frame corners, how do we estimate if w
 This could be solved by getting the slopes of the top and bottom lines but we would have to deal with the five cases that arise from varying camera height relative to the painting. A simpler way to solve this is to get the ratio of the left and 	the right edges of the frame as these edges don’t have the same length unless we are facing the frame perfectly.
 
 ## Guiding Procedure with Examples::
-- Fit bounding boxes around all the paintings greater than the confidence level and keep track of the largest one.
-- If there are no paintings in the image, say `No paintings detected`.
-- If the bounding box of the largest painting does not measure up to at least 25% of the image size on one of the axes, say `Painting too far, walk towards LEFT/CENTER/RIGHT` depending on where the painting is.
+1. Fit bounding boxes around all the paintings greater than the confidence level and keep track of the largest one.
+2. If there are no paintings in the image, say `No paintings detected`.
+3. If the bounding box of the largest painting does not measure up to at least 25% of the image size on one of the axes, say `Painting too far, walk towards LEFT/CENTER/RIGHT` depending on where the painting is.
 
   ![Screenshot](./report_images/too_far.jpg)
 
-- If the bounding box is large enough, but its center does not lie in the middle third of the image, say `Turn LEFT/RIGHT` accordingly to get the largest painting to the center.
+4. If the bounding box is large enough, but its center does not lie in the middle third of the image, say `Turn LEFT/RIGHT` accordingly to get the largest painting to the center.
 
   ![Screenshot](./report_images/turn_right.jpg)
 
-- Once the largest bounding box is close enough and in the center third of the image, say `Close and centered`.
+5. Once the largest bounding box is close enough and in the center third of the image, say `Close and centered`.
 
   ![Screenshot](./report_images/closecenter.jpg)
 
-- Then perform corner detection on the largest bounding box to visualize the corners of the painting.
-- Find the left to right frame edge length ratio (L/R) using the corners found.
-- If the bounding box is `Close and centered`, if the ratio is in the range of [0.9, 1.1], say `Viewing from center`. If the ratio > 1.1, say `Viewing from left` and if ratio < 0.9, say `Viewing from right`.
+6. Then perform corner detection on the largest bounding box to visualize the corners of the painting.
+7. Find the left to right frame edge length ratio (L/R) using the corners found.
+8. If the bounding box is `Close and centered`, if the ratio is in the range of [0.9, 1.1], say `Viewing from center`. If the ratio > 1.1, say `Viewing from left` and if ratio < 0.9, say `Viewing from right`.
 
   ![Screenshot](./report_images/view_left.jpg)
 

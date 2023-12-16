@@ -69,7 +69,7 @@ This could be solved by getting the slopes of the top and bottom lines but we wo
   ![Screenshot](./report_images/view_left.jpg)
 
 ## Results:
-To evaluate the model’s performance in unknown environments, I collected some pictures from the Engineering Center and uploaded the predictions in the results folder. The user directions seem to be correct most of the time.
+To evaluate the model’s performance in unknown environments, I collected some pictures from the Engineering Center and uploaded the predictions in the [results](./results) folder. The user directions seem to be correct most of the time.
 
 ## Limitations:
 - This algorithm works only on paintings with rectangular frames. If the shape of the frame is different, it will mislead the user into the wrong direction.

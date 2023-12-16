@@ -17,7 +17,9 @@ The YOLOv5 model provided by Ultralytics was trained on the dataset for 100 epoc
 ![Screenshot](./report_images/BB.jpg)
 
 ## Failed attempts with edges and corners:
-The next problem to solve is detecting whether the user is viewing the painting from an angle. The first strategy was to get the lines of the frame edges through Hough transform and measure the slope of the top and the bottom lines to know which way one is facing the painting from.
+The next problem to solve is detecting whether the user is viewing the painting from an angle.
+
+The first strategy was to get the lines of the frame edges through Hough transform and measure the slope of the top and the bottom lines to know which way one is facing the painting from.
 
 Some complications with this approach are as follows:
 - Once the hough transform gives us the lines, we should find a way of identifying which of those lines belong to the frame edges (top and bottom) and which ones are random and useless. Given the number of lines it was outputting, this was a hard task.
